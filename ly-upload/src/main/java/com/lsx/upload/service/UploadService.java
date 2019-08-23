@@ -1,5 +1,6 @@
 package com.lsx.upload.service;
 
+import com.lsx.common.config.Conf;
 import com.lsx.common.enums.ExceptionEnum;
 import com.lsx.common.exception.LyException;
 import lombok.extern.slf4j.Slf4j;
@@ -32,11 +33,11 @@ public class UploadService {
             throw new LyException((ExceptionEnum.INVALID_FILE_TYPE));
         }
         //准备目标路径
-        File dest =new File("/img/path",file.getOriginalFilename());
+        File dest =new File(Conf.UPLOD_PATH,file.getOriginalFilename());
         //保存文件到本地
         file.transferTo(dest);
         //返回路径
-        return "http://image.layou.com/" + file.getOriginalFilename();
+        return Conf.IMG_URL+ file.getOriginalFilename();
         } catch (IOException e) {
             //上传失败
             log.error("上传文件失败",e);
